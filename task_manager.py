@@ -1,3 +1,7 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def add_task(
     tasks: list[dict[str, str | bool]],
@@ -18,7 +22,9 @@ def add_task(
     }
 
     tasks.append(task)
+    logger.info("Task added successfully: %s", title)
     return True
+
 
 
 def view_tasks(
@@ -37,4 +43,39 @@ def mark_task_completed(
         return False
 
     tasks[task_number - 1]["completed"] = True
+    logger.info(
+    "Task marked as completed: %s",
+    tasks[task_number - 1]["title"],
+)
     return True
+
+
+
+def delete_task(
+    tasks: list[dict[str, str | bool]],
+    task_number: int
+) -> bool:
+    """Delete a task using its one-based position."""
+    if task_number < 1 or task_number > len(tasks):
+        return False
+    
+    logger.info(
+    "Task deleted: %s",
+    tasks[task_number - 1]["title"],
+)
+
+    tasks.pop(task_number - 1)
+    return True
+
+
+def health_check() -> bool:
+    """Check that the task manager's core functions are available."""
+    return all(
+        callable(function)
+        for function in (
+            add_task,
+            view_tasks,
+            mark_task_completed,
+            delete_task,
+        )
+    )
