@@ -1,6 +1,6 @@
 
 def add_task(
-    tasks: list[dict[str, str]],
+    tasks: list[dict[str, str | bool]],
     title: str,
     description: str
 ) -> bool:
@@ -13,7 +13,8 @@ def add_task(
 
     task = {
         "title": title,
-        "description": description
+        "description": description,
+        "completed": False
     }
 
     tasks.append(task)

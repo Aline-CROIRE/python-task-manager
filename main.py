@@ -3,10 +3,11 @@ from task_manager import add_task, view_tasks
 
 
 def main():
+    """Run the Python Personal Task Manager."""
     tasks = []
 
 
-    print("     PYTHON PERSONAL TASK MANAGER")
+    print("     PYTHON PERSONAL TASK MANAGER   ")
 
 
     title = input("Enter task title: ")
@@ -25,9 +26,12 @@ def main():
         print("No tasks found.")
     else:
         for index, task in enumerate(current_tasks, start=1):
+            status = "Completed" if task["completed"] else "Pending"
+
             print(f"\nTask {index}")
             print(f"Title: {task['title']}")
             print(f"Description: {task['description']}")
+            print(f"Status: {status}")
 
 
 if __name__ == "__main__":
