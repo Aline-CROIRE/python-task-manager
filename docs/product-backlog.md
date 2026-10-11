@@ -15,9 +15,10 @@ We use a simple scale of 1, 2, 3, and 5 points.
 As a user, I want to add a task so that I can remember activities I need to complete.
 
 **Acceptance Criteria**
-- The user can enter a task description.
-- A valid task is added to the task list.
-- Empty task descriptions are rejected with a helpful message.
+- The user can enter a task title and description.
+- Both fields must contain non-whitespace text.
+- A valid task is added to the task list with its title and description.
+- If either field is empty, the task is rejected with a helpful message.
 
 ### US2 — View Tasks
 **Priority:** High  
