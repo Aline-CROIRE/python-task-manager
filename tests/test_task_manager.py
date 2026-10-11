@@ -1,4 +1,4 @@
-from task_manager import add_task, view_tasks, mark_task_completed
+from task_manager import add_task, view_tasks, mark_task_completed, delete_task
 
 
 def test_add_task_with_valid_title_and_description():
@@ -64,3 +64,25 @@ def test_mark_task_completed_invalid_number():
     result = mark_task_completed(tasks, 1)
 
     assert result is False
+
+
+def test_delete_task():
+    tasks = []
+
+    add_task(tasks, "Study Python", "Practice functions")
+    add_task(tasks, "Learn Git", "Practice commits")
+
+    result = delete_task(tasks, 1)
+
+    assert result is True
+    assert len(tasks) == 1
+    assert tasks[0]["title"] == "Learn Git"
+
+
+def test_delete_task_invalid_number():
+    tasks = []
+
+    result = delete_task(tasks, 1)
+
+    assert result is False
+    assert tasks == []
