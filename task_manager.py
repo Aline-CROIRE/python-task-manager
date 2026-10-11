@@ -4,7 +4,7 @@ def add_task(
     title: str,
     description: str
 ) -> bool:
-    """Add a task if its title and description are valid."""
+    """Add a task if its title and description are not empty."""
     title = title.strip()
     description = description.strip()
 
@@ -21,7 +21,20 @@ def add_task(
     return True
 
 
-def view_tasks(tasks: list[dict[str, str]]) -> list[dict[str, str]]:
-    """Return all tasks for display."""
+def view_tasks(
+    tasks: list[dict[str, str | bool]]
+) -> list[dict[str, str | bool]]:
+    """Return all tasks."""
     return tasks
 
+
+def mark_task_completed(
+    tasks: list[dict[str, str | bool]],
+    task_number: int
+) -> bool:
+    """Mark a task as completed using its one-based position."""
+    if task_number < 1 or task_number > len(tasks):
+        return False
+
+    tasks[task_number - 1]["completed"] = True
+    return True

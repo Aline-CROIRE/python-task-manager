@@ -1,37 +1,83 @@
 
-from task_manager import add_task, view_tasks
+from task_manager import add_task, view_tasks, mark_task_completed
 
 
-def main():
-    """Run the Python Personal Task Manager."""
-    tasks = []
-
-
-    print("     PYTHON PERSONAL TASK MANAGER   ")
-
-
-    title = input("Enter task title: ")
-    description = input("Enter task description: ")
-
-    if add_task(tasks, title, description):
-        print("\nTask added successfully!")
-    else:
-        print("\nTitle and description cannot be empty.")
-
-    print("\nCurrent tasks:")
-
+def display_tasks(tasks: list[dict[str, str | bool]]) -> None:
+    """Display all tasks and their completion status."""
     current_tasks = view_tasks(tasks)
 
     if not current_tasks:
-        print("No tasks found.")
-    else:
-        for index, task in enumerate(current_tasks, start=1):
-            status = "Completed" if task["completed"] else "Pending"
+        print("\nNo tasks found.")
+        return
 
-            print(f"\nTask {index}")
-            print(f"Title: {task['title']}")
-            print(f"Description: {task['description']}")
-            print(f"Status: {status}")
+    print("\n        YOUR TASKS       ")
+
+    for index, task in enumerate(current_tasks, start=1):
+        status = "Completed" if task["completed"] else "Pending"
+
+        print(f"\nTask {index}")
+        print(f"Title: {task['title']}")
+        print(f"Description: {task['description']}")
+        print(f"Status: {status}")
+
+   
+
+def main() -> None:
+    """Run the Python Personal Task Manager."""
+    tasks: list[dict[str, str | bool]] = []
+
+    print("  PYTHON PERSONAL TASK MANAGER  ")
+
+
+    while True:
+        print("\nChoose an option:")
+        print("1. Add a task")
+        print("2. View tasks")
+        print("3. Mark a task as completed")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ").strip()
+
+        if choice == "1":
+            title = input("Enter task title: ")
+            description = input("Enter task description: ")
+
+            if add_task(tasks, title, description):
+                print("\nTask added successfully!")
+            else:
+                print("\nTitle and description cannot be empty.")
+
+        elif choice == "2":
+            display_tasks(tasks)
+
+        elif choice == "3":
+            if not tasks:
+                print("\nNo tasks available to complete.")
+                continue
+
+            display_tasks(tasks)
+
+            task_input = input(
+                "\nEnter the task number to complete: "
+            ).strip()
+
+            try:
+                task_number = int(task_input)
+            except ValueError:
+                print("\nPlease enter a valid whole number.")
+                continue
+
+            if mark_task_completed(tasks, task_number):
+                print("\nTask marked as completed!")
+            else:
+                print("\nInvalid task number. Please try again.")
+
+        elif choice == "4":
+            print("\nThank you for using the Task Manager. Goodbye!")
+            break
+
+        else:
+            print("\nInvalid choice. Please select an option from 1 to 4.")
 
 
 if __name__ == "__main__":

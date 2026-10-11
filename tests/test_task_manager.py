@@ -1,5 +1,4 @@
-
-from task_manager import add_task, view_tasks
+from task_manager import add_task, view_tasks, mark_task_completed
 
 
 def test_add_task_with_valid_title_and_description():
@@ -46,3 +45,22 @@ def test_view_tasks_returns_existing_tasks():
     result = view_tasks(tasks)
 
     assert result == tasks
+
+
+def test_mark_task_completed():
+    tasks = []
+
+    add_task(tasks, "Study Python", "Practice functions")
+
+    result = mark_task_completed(tasks, 1)
+
+    assert result is True
+    assert tasks[0]["completed"] is True
+
+
+def test_mark_task_completed_invalid_number():
+    tasks = []
+
+    result = mark_task_completed(tasks, 1)
+
+    assert result is False
