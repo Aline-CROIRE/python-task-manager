@@ -18,3 +18,9 @@ def add_task(
 
     tasks.append(task)
     return True
+
+
+def view_tasks(tasks: list[dict[str, str]]) -> list[dict[str, str]]:
+    """Return all tasks for display."""
+    return tasks
+
